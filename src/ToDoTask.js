@@ -8,10 +8,11 @@ class ToDoTask extends React.Component {
             done: this.props.task.done
         }
 
-        this.handleClick = this.handleClick.bind(this);
+        this.onStatusClick = this.onStatusClick.bind(this);
+        this.onDeleteClick = this.onDeleteClick.bind(this);
     }
 
-    handleClick(e) {
+    onStatusClick(e) {
         e.preventDefault();
 
         this.setState({
@@ -19,9 +20,22 @@ class ToDoTask extends React.Component {
         });
     }
 
+    onDeleteClick(e) {
+        e.preventDefault();
+
+        fetch(`tasks/${this.props.task._id}`, { method: 'DELETE' }).then((res) => {
+            if (res.status === 204) {
+                this.props.onTaskDelete(this.props.task._id);
+            }
+            else {
+                console.log('not deleted');
+            }
+        });
+    }
+
     render() {
         return (
-            <li onClick={this.handleClick}>{this.props.task.name} - {this.state.done ? 'Done' : 'Todo'}</li>
+            <li onClick={this.onStatusClick}>{this.props.task.name} - {this.state.done ? 'Done' : 'Todo'} <button onClick={this.onDeleteClick}>Delete</button></li>
         );
     }
 }
