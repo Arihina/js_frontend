@@ -1,6 +1,8 @@
 import React from "react";
 
 import ToDoTask from './ToDoTask';
+import ToDoTaskAdd from "./ToDoTaskAdd";
+
 
 class App extends React.Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class App extends React.Component {
     }
 
     this.onTaskDelete = this.onTaskDelete.bind(this);
+    this.onTaskAdd = this.onTaskAdd.bind(this);
   }
 
   componentDidMount() {
@@ -31,9 +34,16 @@ class App extends React.Component {
     });
   }
 
+  onTaskAdd(task) {
+    this.setState({
+      tasks: [...this.state.tasks, task]
+    });
+  }
+
   render() {
     return (
       <div className="App">
+        <ToDoTaskAdd onTaskAdd={this.onTaskAdd} />
         <ul>
           {
             this.state.tasks.map((task) => {

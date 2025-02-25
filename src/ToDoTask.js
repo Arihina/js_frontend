@@ -35,7 +35,12 @@ class ToDoTask extends React.Component {
 
     render() {
         return (
-            <li onClick={this.onStatusClick}>{this.props.task.name} - {this.state.done ? 'Done' : 'Todo'} <button onClick={this.onDeleteClick}>Delete</button></li>
+            <li>
+                <span>{this.props.task.name} </span>
+                <span><i>{this.props.task.description}</i> </span>
+                <span onClick={this.onStatusClick}><b>{this.state.done ? 'Done' : 'Todo'}</b> </span>
+                <button onClick={this.onDeleteClick}>Delete</button>
+            </li>
         );
     }
 }
