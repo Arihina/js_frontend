@@ -15,8 +15,23 @@ class ToDoTask extends React.Component {
     onStatusClick(e) {
         e.preventDefault();
 
-        this.setState({
-            done: !this.state.done
+        fetch(`tasks/${this.props.task._id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                done: !this.state.done
+            })
+        }).then((res) => {
+            if (res.status === 200) {
+                this.setState({
+                    done: !this.state.done
+                });
+            }
+            else {
+                console.log('not updated');
+            }
         });
     }
 
