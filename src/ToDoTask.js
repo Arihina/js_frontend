@@ -1,13 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import { todoDelete, todoUpdateState } from './actions';
 
 
 class ToDoTask extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            done: this.props.task.done
-        }
 
         this.onStatusClick = this.onStatusClick.bind(this);
         this.onDeleteClick = this.onDeleteClick.bind(this);
@@ -22,13 +21,11 @@ class ToDoTask extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                done: !this.state.done
+                done: !this.props.task.done
             })
         }).then((res) => {
             if (res.status === 200) {
-                this.setState({
-                    done: !this.state.done
-                });
+                this.props.dispatch(todoUpdateState(this.props.task._id));
             }
             else {
                 console.log('not updated');
@@ -41,7 +38,7 @@ class ToDoTask extends React.Component {
 
         fetch(`tasks/${this.props.task._id}`, { method: 'DELETE' }).then((res) => {
             if (res.status === 204) {
-                this.props.onTaskDelete(this.props.task._id);
+                this.props.dispatch(todoDelete(this.props.task._id));
             }
             else {
                 console.log('not deleted');
@@ -54,11 +51,11 @@ class ToDoTask extends React.Component {
             <li>
                 <span>{this.props.task.name} </span>
                 <span><i>{this.props.task.description}</i> </span>
-                <span onClick={this.onStatusClick}><b>{this.state.done ? 'Done' : 'Todo'}</b> </span>
+                <span onClick={this.onStatusClick}><b>{this.props.task.done ? 'Done' : 'Todo'}</b> </span>
                 <button onClick={this.onDeleteClick}>Delete</button>
             </li>
         );
     }
 }
 
-export default ToDoTask;
+export default connect()(ToDoTask);
