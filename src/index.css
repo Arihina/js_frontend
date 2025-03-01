@@ -5,7 +5,7 @@ body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.5;
   background: #56566B;
-  color: #EAE0C8;
+  color: #56566B;
 }
 
 i {
@@ -110,6 +110,11 @@ i {
   position: relative;
   align-items: center;
 } 
+
+.widget-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
 
 .widget-content .widget-content-right .widget-content-actions {
   visibility: hidden;
