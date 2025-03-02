@@ -11,7 +11,7 @@ class ToDoList extends React.Component {
       <div className="card-hover-shadow-2x mb-3 card">
         <div className="card-header-tab card-header">
           <div className="card-header-title font-size-lg text-capitalize font-weight-normal">
-            <i className="fa fa-tasks">&nbsp;Task List</i>
+            <i className="fa fa-tasks"> Task List</i>
           </div>
         </div>
         <div className="scroll-area-sm">
@@ -25,7 +25,6 @@ class ToDoList extends React.Component {
                         <ToDoTask task={task} key={task._id} />
                       )
                     }
-
                     )
                   }
                 </ul>
